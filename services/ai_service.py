@@ -1,4 +1,5 @@
 from google import genai
+import os
 
 MODEL_NAME = "gemini-3-flash-preview"
 
