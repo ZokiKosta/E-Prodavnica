@@ -2,7 +2,7 @@ from google import genai
 
 MODEL_NAME = "gemini-3-flash-preview"
 
-GEMINI_API_KEY = "" # овој АПИ клуч го добиваме од гемини
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "") # овој АПИ клуч го добиваме од гемини
 
 def generate_text(prompt: str) -> str:
     # ова е функцијата којашто ќе ја користиме за да добиеме notes и description со помош на AI
