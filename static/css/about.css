@@ -1,0 +1,146 @@
+/* ===== Base ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: linear-gradient(180deg, #121212, #1a1a1a, #121212);
+    color: #f0f0f0;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* ===== Hero ===== */
+.about-hero {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.about-hero h1 {
+    font-size: 44px;
+    margin-bottom: 10px;
+}
+
+.about-hero p {
+    font-size: 18px;
+    color: #d1d1d1;
+}
+
+/* ===== About Content ===== */
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 70px 10%;
+    background: rgba(0, 0, 0, 0.35);
+}
+
+.about-text h2,
+.about-map h2 {
+    color: #ffffff;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.about-text h2::after,
+.about-map h2::after {
+    content: "";
+    width: 50px;
+    height: 2px;
+    background-color: #ff6f61;
+    display: block;
+    margin-top: 6px;
+}
+
+.about-text p {
+    margin-bottom: 15px;
+    color: #d1d1d1;
+}
+
+/* ===== Map ===== */
+.about-map iframe {
+    width: 100%;
+    height: 360px;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* ===== Partners ===== */
+.partners {
+    padding: 80px 10%;
+    text-align: center;
+}
+
+.partners h2 {
+    font-size: 34px;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.partners h2::after {
+    content: "";
+    width: 60px;
+    height: 2px;
+    background-color: #ff6f61;
+    display: block;
+    margin: 10px auto 0;
+}
+
+/* ===== Partner Grid ===== */
+.partners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 30px;
+}
+
+/* ===== Partner Card ===== */
+.partner-card {
+    background-color: #1f1f1f;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.partner-card:hover {
+    transform: translateY(-6px);
+    background-color: #ff6f61;
+}
+
+.partner-card h3 {
+    font-size: 18px;
+    color: #ffffff;
+}
+
+/* ===== Partner Logos ===== */
+.partner-card img {
+    max-width: 120px;
+    max-height: 60px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.partner-card:hover img {
+    filter: brightness(1) invert(0);
+    transform: scale(1.05);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+}
+.partner-card a {
+    text-decoration: none;
+    color: inherit;
+    display: block; /* makes the whole card clickable nicely */
+}
+

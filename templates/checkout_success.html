@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout Success</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/checkout_success.css') }}">
+</head>
+<body>
+    <h1>✅ Order placed successfully!</h1>
+    <p>Thank you for your purchase.</p>
+
+    <a href="{{ url_for('home') }}" class="btn">Back to Shop</a>
+</body>
+</html>

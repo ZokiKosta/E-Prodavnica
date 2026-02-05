@@ -1,0 +1,186 @@
+/* ===== Navbar Styles ===== */
+.nav {
+    background-color: #121212; /* Darker, modern background */
+    color: #f0f0f0;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav a {
+    color: #f0f0f0;
+    text-decoration: none;
+    margin-right: 25px;
+    font-weight: bold; /* Bold font for links */
+    padding: 8px 15px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.nav a:hover {
+    background-color: #ff6f61; /* Accent hover background */
+    color: #ffffff; /* Text stays readable */
+    transform: translateY(-2px);
+}
+
+.nav-container, .cart-container {
+    display: flex;
+    align-items: center;
+}
+
+/* ===== Cart Button ===== */
+.cart-container a {
+    margin-right: 10px;
+    font-weight: bold; /* Bold Cart text */
+    padding: 8px 15px;
+    border-radius: 6px;
+    background-color: #ff6f61; /* Stand out */
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.cart-container a:hover {
+    background-color: #e85b50;
+    transform: translateY(-2px);
+}
+
+.cart-container img {
+    width: 25px;
+    height: 25px;
+}
+
+/* ===== Flash messages ===== */
+.flash-wrap {
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+.flash {
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.flash.success {
+    background-color: #4caf50;
+}
+
+.flash.error {
+    background-color: #f44336;
+}
+
+.flash.info {
+    background-color: #2196f3;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 20px;
+    }
+
+    .nav-container, .cart-container {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .nav a, .cart-container a {
+        margin: 5px 0;
+    }
+}
+
+/* ===== Footer Styles ===== */
+.footer {
+    background-color: #1f1f1f; /* Dark background */
+    color: #f0f0f0; /* Light text */
+    padding: 50px 20px 20px 20px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.footer a {
+    color: #f0f0f0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: #ff6f61; /* Accent color on hover */
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto 30px auto;
+}
+
+.footer-content > div {
+    flex: 1 1 200px; /* Responsive columns */
+    min-width: 180px;
+}
+
+.footer h4 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #ffffff;
+    position: relative;
+}
+
+.footer h4::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 2px;
+    background-color: #ff6f61; /* Accent underline */
+    margin-top: 5px;
+    border-radius: 2px;
+}
+
+.footer p {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+    color: #d1d1d1;
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 13px;
+    color: #888;
+    border-top: 1px solid #333;
+    padding-top: 15px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-content > div {
+        margin-bottom: 20px;
+    }
+}
+
+
+

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title or "E-Shop" }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<nav class="nav">
+    <div class="nav-container">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('catalogue') }}">Catalogue</a>
+        <a href="{{ url_for('about') }}">About</a>
+        <a href="{{ url_for('product_new') }}">Add Product</a>
+    </div>
+
+    <div class="cart-container">
+        <a href="{{ url_for('cart') }}">Cart</a>
+        <img src="https://uxwing.com/wp-content/themes/uxwing/download/e-commerce-currency-shopping/shopping-cart-white-icon.png" width="25" height="25">
+    </div>
+</nav>
+
+
+<main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-wrap">
+        {% for category, msg in messages %}
+        <div class="flash {{ category }}">{{ msg }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+</main>
+{% block content %}
+{% endblock %}
+<footer class="footer">
+    <div class="footer-content">
+        <div>
+            <h4>Shop</h4>
+            <p>Your trusted online store.</p>
+        </div>
+
+        <div>
+            <h4>Links</h4>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('catalogue') }}">Catalogue</a>
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('cart') }}">Cart</a>
+        </div>
+
+        <div>
+            <h4>Contact</h4>
+            <p>Email: support@shop.com</p>
+            <p>Phone: +389 70 000 000</p>
+        </div>
+    </div>
+
+    <p class="footer-bottom">
+        © 2026 Shop. All rights reserved.
+    </p>
+</footer>
+</body>
+</html>

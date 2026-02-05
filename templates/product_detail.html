@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+{% block extra_css %}
+<!--<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">-->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/product_detail.css') }}">
+{% endblock %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="product-main">
+        <img src="{{ product.image_url }}" alt="Product Image">
+        <div class="product-info">
+            <h1>{{ product.name }}</h1>
+            <div class="muted">{{ product.category }} | $ {{ product.price }}</div>
+            <div class="stock-status {% if product.stock|int > 0 %}stock-in{% else %}stock-out{% endif %}">
+                {% if product.stock|int > 0 %}In Stock{% else %}Out of stock{% endif %}
+            </div>
+            <form action="{{ url_for('cart_add', product_id=product.id) }}" method="post">
+        <button class="btn primary"
+            {% if product.stock|int <= 0 %}disabled{% endif %}>
+            {% if product.stock|int > 0 %}
+                Add to Cart
+            {% else %}
+                Out of stock
+            {% endif %}
+        </button>
+    </form>
+
+        </div>
+    </div>
+
+    <div class="product-details">
+        {% if product.ai_description %}
+        <h2>Description</h2>
+        <pre class="pre">{{ product.ai_description | safe }} <br><br>Made by GeminiAI</pre>
+        {% endif %}
+
+        {% if product.notes %}
+        <h2>Notes</h2>
+        <pre class="pre">{{ product.notes }}</pre>
+        {% endif %}
+    </div>
+
+    <div class="product-actions">
+        <a class="btn edit" href="{{ url_for('product_edit', product_id=product.id) }}">Edit</a>
+        <form method="post" action="{{ url_for('product_delete', product_id=product.id) }}" onsubmit="return confirm('Delete?');">
+            <button class="btn danger" type="submit">Delete</button>
+        </form>
+    </div>
+</div>
+
+<section class="recommended-section">
+    <h2 class="section-title">Recommended Products</h2>
+
+    <div class="recommended-bar">
+        {% for product in recommended %}
+        <div class="recommended-item">
+            <img src="{{ product.image_url }}" alt="{{ product.name }}">
+
+            <div class="product-info">
+                <h3>{{ product.name }}</h3>
+                <p class="price">{{ product.price }} $ </p>
+
+                <div class="locked-actions">
+                    <a href="{{ url_for('product_detail', product_id=product.id) }}" class="btn small">
+                        View
+                    </a>
+
+                    <form action="{{ url_for('cart_add', product_id=product.id) }}" method="post">
+        <button class="btn small"
+                type="submit"
+                {% if product.stock|int <= 0 %}disabled{% endif %}>
+            {% if product.stock|int > 0 %}
+                Add to Cart
+            {% else %}
+                Out of Stock
+            {% endif %}
+        </button>
+</form>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

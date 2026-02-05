@@ -1,0 +1,102 @@
+/* ===================== ORDER CONFIRMATION PAGE ===================== */
+
+/* Page background */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: linear-gradient(135deg, #e0f7ff, #f6f8ff);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+/* Success Title */
+h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #4CAF50;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+/* Add a subtle checkmark animation */
+h1::before {
+    content: "✔";
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 2.5rem;
+    animation: popCheck 0.6s ease-out;
+    color: #4CAF50;
+}
+
+@keyframes popCheck {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+/* Thank you message */
+p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #555;
+}
+
+/* Button */
+.btn {
+    background: #4CAF50;
+    color: #fff;
+    padding: 14px 35px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 50px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.btn:hover {
+    background: #45a049;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+
+    .btn {
+        padding: 12px 30px;
+        font-size: 0.95rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    p {
+        font-size: 0.95rem;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 0.9rem;
+    }
+}

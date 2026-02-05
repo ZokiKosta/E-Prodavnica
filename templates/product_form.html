@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/product_form.css') }}">
+{% endblock %}
+{% block content %}
+
+<h1 class="product-form-title">{% if product %}Edit product{% else %}New Product{% endif %}</h1>
+
+<form class="form" method="post">
+
+    {% if product %}
+    <img src="{{ product.image_url }}" alt="https://img.freepik.com/premium-vector/vector-flat-solid-colors-grey-laptop-icon_111984-32.jpg" width="600" height="450">
+    {% else %}
+    <img src="https://img.freepik.com/premium-vector/vector-flat-solid-colors-grey-laptop-icon_111984-32.jpg" alt="Error" width="600" height="450">
+    {% endif %}
+
+    <label>Name *</label>
+    <input type="text" name="name" maxlength="120" required value="{{ product.name if product else '' }}">
+
+    <label>Category *</label>
+    <select name="category" required>
+        <option value="" disabled {% if not product %}selected{% endif %}>Select...</option>
+
+        {% for c in categories %}
+            <option value="{{ c }}"
+                {% if product and product.category == c %}selected{% endif %}>
+                {{ c }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <label>Price *</label>
+    <input type="number" name="price_raw" min="1" max="1999" value="{{ product.price if product and product.price else '' }}">
+
+    <label>Product Image URL (PNG, JPG, JPEG) *</label>
+    <input type="url" id="image_url" name="image_url" placeholder="https://example.com/image.jpg" value="{{ product.image_url if product else '' }}" required>
+
+    <p id="image-error" style="color:red; display:none;"></p>
+
+    <label>Notes</label>
+    <textarea name="notes" rows="6">{{ product.notes if product and product.notes else '' }}</textarea>
+
+    <label>Stock *</label>
+    <input type="number" name="stock" min="0" max="999" value="{{ product.stock if product and product.stock else '' }}">
+
+    <button class="btn save" type="submit">Save</button>
+</form>
+
+{% endblock %}

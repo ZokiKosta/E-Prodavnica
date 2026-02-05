@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/catalogue.css') }}">
+{% endblock %}
+
+{% block content %}
+<br><h1 class="catalogue-title">Catalogue</h1><br><br>
+
+<form method="get" class="filter-form">
+    <div class="filter-bar">
+        <input type="text" name="q" placeholder="Search..." value="{{ q }}" class="filter-input">
+
+        <select name="category" class="filter-select">
+            <option value="">All Categories</option>
+            {% for cat in categories %}
+            <option value="{{ cat }}" {% if cat == category %}selected{% endif %}>{{ cat }}</option>
+            {% endfor %}
+        </select>
+
+        <div class="price-wrapper">
+            <input type="range" id="price" name="price" min="0" max="1999" value="{{ max_price or 1999 }}" oninput="priceOutput.value=this.value">
+            <output id="priceOutput">{{ max_price or 1999 }}</output>
+        </div>
+
+        <button type="submit" class="filter-button">Filter</button>
+    </div>
+</form>
+
+
+<div class="products-grid">
+    {% for product in products %}
+    <div class="product-card">
+        <a href="{{ url_for('product_detail', product_id=product.id) }}">
+            <div class="image-wrapper">
+                <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                <div class="product-info">
+                    <p class="name">{{ product.name }}</p>
+                    <p class="price">${{ product.price }}</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="pagination">
+    {% if page > 1 %}
+        <a href="{{ url_for('catalogue', page=page-1, q=q, category=category) }}">Previous</a>
+    {% else %}
+        <span class="disabled">Previous</span>
+    {% endif %}
+
+    <span>Page {{ page }} of {{ total_pages }}</span>
+
+    {% if page < total_pages %}
+        <a href="{{ url_for('catalogue', page=page+1, q=q, category=category) }}">Next</a>
+    {% else %}
+        <span class="disabled">Next</span>
+    {% endif %}
+</div>
+
+<section class="partners catalogue-partners">
+    <h2>Shop by Brand</h2>
+
+    <div class="partners-grid">
+        <a href="{{ url_for('catalogue', q='HP') }}" class="partner-card">
+            <h3>HP</h3>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/HP_logo_2012.svg/250px-HP_logo_2012.svg.png"><br>
+        </a>
+
+        <a href="{{ url_for('catalogue', q='DELL') }}" class="partner-card">
+            <h3>DELL</h3>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Dell_Logo.svg/960px-Dell_Logo.svg.png"><br>
+        </a>
+
+        <a href="{{ url_for('catalogue', q='Apple') }}" class="partner-card">
+            <h3>Apple</h3>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"><br>
+        </a>
+
+        <a href="{{ url_for('catalogue', q='Razer') }}" class="partner-card">
+            <h3>Razer</h3>
+            <img src="https://cdn.freebiesupply.com/logos/large/2x/razer-logo-png-transparent.png"><br>
+        </a>
+
+        <a href="{{ url_for('catalogue', q='Logitech') }}" class="partner-card">
+            <h3>Logitech</h3>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Logitech_logo.png"><br>
+        </a>
+    </div>
+</section>
+
+{% endblock %}

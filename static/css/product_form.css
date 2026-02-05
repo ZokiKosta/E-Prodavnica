@@ -1,0 +1,304 @@
+/* ===== Product Form Styles ===== */
+
+/* Page background same as other pages */
+body {
+    background: #f5f5f5;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+h1 {
+    text-align: center;
+    font-size: 2.4rem;
+    font-weight: 800;
+    margin: 80px 0 30px;
+    color: #ff6f61;
+    letter-spacing: 0.5px;
+}
+
+/* Form container styled like a card */
+.form {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 30px 25px;
+    background: #fff; /* white card */
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Heading: New Product / Edit Product */
+.form h1 {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #ff6f61; /* matches site primary color */
+    margin-bottom: 25px;
+    position: relative;
+}
+
+/* Optional underline under title */
+.form h1::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #ff6f61;
+    margin: 8px auto 0 auto;
+    border-radius: 2px;
+}
+
+/* Product image */
+.form img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Labels */
+.form label {
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 6px;
+    display: block;
+}
+
+/* Inputs, selects, textarea */
+.form input[type="text"],
+.form input[type="number"],
+.form input[type="url"],
+.form select,
+.form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    background: #fdfdfd;
+}
+
+/* Focus effect for inputs */
+.form input:focus,
+.form select:focus,
+.form textarea:focus {
+    border-color: #ff6f61;
+    box-shadow: 0 0 0 3px rgba(255,111,97,0.1);
+}
+
+/* Textarea adjustments */
+.form textarea {
+    resize: vertical;
+    font-family: inherit;
+}
+
+/* Error message */
+#image-error {
+    font-size: 0.9rem;
+    color: red;
+}
+
+/* Submit button matches site style */
+.form .btn {
+    background: #4CAF50;
+    color: #fff;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+    align-self: flex-start;
+}
+
+.form .btn:hover {
+    background: #45a049;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.18);
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .form {
+        padding: 20px;
+        margin: 20px;
+    }
+
+    .form h1 {
+        font-size: 1.8rem;
+    }
+}
+
+.form .btn.save {
+    align-self: center;
+}
+
+/* ===== Lighter Moving Dotted Background ===== */
+body {
+    background-color: #2b2b2b; /* slightly lighter dark gray */
+    background-image: radial-gradient(circle, #555 2px, transparent 2px); /* bigger dots and lighter */
+    background-size: 25px 25px; /* spacing between dots */
+    background-blend-mode: overlay;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #fff;
+    animation: moveDots 10s linear infinite; /* faster movement */
+}
+
+/* Animate the dots */
+@keyframes moveDots {
+    0% { background-position: 0 0; }
+    50% { background-position: 50px 50px; }
+    100% { background-position: 0 0; }
+}
+
+/* Keep form container styled like the orange gradient */
+.form {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(135deg, #ff6f61, #ffb085);
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 30px 25px;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: all 0.3s ease;
+    color: #fff;
+}
+
+.form:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* Form heading */
+.form h1 {
+    color: #fff;
+    font-size: 2.2rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.form h1::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #fff;
+    margin: 8px auto 0 auto;
+    border-radius: 2px;
+}
+
+/* Inputs and textarea */
+.form input[type="text"],
+.form input[type="number"],
+.form input[type="url"],
+.form select,
+.form textarea {
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 15px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    color: #333;
+}
+
+.form input:focus,
+.form select:focus,
+.form textarea:focus {
+    border: 2px solid #ff6f61;
+    box-shadow: 0 0 0 3px rgba(255,111,97,0.15);
+}
+
+/* Product image */
+.form img {
+    border-radius: 16px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Save button */
+.form .btn.save {
+    background: #fff;
+    color: #ff6f61;
+    align-self: center;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+
+.form .btn.save:hover {
+    background: #ffece7;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.18);
+}
+
+/* Error message */
+#image-error {
+    color: #ff4f41;
+    font-size: 0.9rem;
+}
+/* ===== New/Edit Product Title ===== */
+.product-form-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 2rem 0;
+    position: relative;
+    letter-spacing: 1px;
+    color: #ffffff; /* text is now white */
+    animation: fadeUp 0.6s ease-out;
+}
+
+.product-form-title::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    width: 60px;
+    height: 4px;
+    background: #ff6b00; /* accent underline */
+    border-radius: 2px;
+}
+
+/* Fade-up animation */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+

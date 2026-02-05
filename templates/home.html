@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
+{% block content %}
+
+<section class="hero">
+    <div class="hero-overlay"></div>
+
+    <div class="hero-text">
+        <h1 class="hero-title">
+            Discover Products<br>
+            Designed for Everyday Life
+        </h1>
+
+        <p class="hero-subtitle">
+            Premium quality, fast delivery, and secure shopping — all in one place.
+        </p>
+
+        <a href="{{ url_for('catalogue') }}" class="btn hero-btn">
+            Shop Now
+        </a>
+    </div>
+</section>
+
+<section class="features">
+    <div class="feature feature-delivery">
+        <h3>🚚 Fast Delivery</h3>
+        <p>Nationwide shipping with express delivery options and real-time tracking.</p>
+    </div>
+
+    <div class="feature feature-payment">
+        <h3>💳 Secure Payment</h3>
+        <p>Encrypted transactions with trusted payment providers for total safety.</p>
+    </div>
+
+    <div class="feature feature-quality">
+        <h3>⭐ Quality Products</h3>
+        <p>Hand-picked products tested for durability, design, and performance.</p>
+    </div>
+</section>
+
+<section class="recommended-section">
+    <h2 class="section-title">Recommended Products</h2><br><br>
+
+    <div class="recommended-bar">
+        {% for product in recommended %}
+        <div class="recommended-item">
+            <img src="{{ product.image_url }}" alt="{{ product.name }}">
+
+            <div class="product-info">
+                <h3>{{ product.name }}</h3>
+                <p class="price">{{ product.price }} $ </p>
+
+                <div class="locked-actions">
+                    <a href="{{ url_for('product_detail', product_id=product.id) }}" class="btn small">
+                        View
+                    </a>
+
+                    <form action="{{ url_for('cart_add', product_id=product.id) }}" method="post">
+        <button class="btn small"
+                type="submit"
+                {% if product.stock|int <= 0 %}disabled{% endif %}>
+            {% if product.stock|int > 0 %}
+                Add to Cart
+            {% else %}
+                Out of Stock
+            {% endif %}
+        </button>
+</form>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="partners">
+    <h2>Our Partners</h2>
+
+    <div class="partners-grid">
+        <div class="partner-card">
+            <a href="https://www.hp.com" target="_blank">
+                <h3>HP</h3>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/HP_logo_2012.svg/250px-HP_logo_2012.svg.png" alt="HP Logo"><br>
+            </a><br>
+        </div>
+        <div class="partner-card">
+            <a href="https://www.dell.com" target="_blank">
+                <h3>DELL</h3>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Dell_Logo.svg/960px-Dell_Logo.svg.png" alt="Dell Logo"><br>
+            </a><br>
+        </div>
+        <div class="partner-card">
+            <a href="https://www.apple.com" target="_blank">
+                <h3>Apple</h3>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple Logo"><br>
+            </a><br>
+        </div>
+        <div class="partner-card">
+            <a href="https://www.razer.com" target="_blank">
+                <h3>Razer</h3>
+                <img src="https://cdn.freebiesupply.com/logos/large/2x/razer-logo-png-transparent.png" alt="Razer Logo"><br>
+            </a><br>
+        </div>
+        <div class="partner-card">
+            <a href="https://www.logitech.com" target="_blank">
+                <h3>Logitech</h3>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Logitech_logo.png" alt="Logitech Logo"><br>
+            </a><br>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

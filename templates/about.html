@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+{% endblock %}
+{% block content %}
+
+    <section class="about-hero">
+        <h1>About Us</h1>
+        <p>We are a modern company focused on quality, reliability, and long-term partnerships.</p>
+    </section>
+
+    <section class="about-content">
+        <div class="about-text">
+            <h2>Who We Are</h2>
+            <p>
+                Our company is built on trust, innovation, and customer satisfaction.
+                We work closely with our partners and clients to deliver high-quality
+                products and services that meet real-world needs.
+            </p>
+            <p>
+                With years of experience and a dedicated team, we continue to grow
+                while maintaining our core values of transparency and excellence.
+            </p>
+        </div>
+
+        <div class="about-map">
+            <h2>Our Location</h2>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d633.2240163461472!2d21.430866065062524!3d41.99628195300449!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2smk!4v1769945053938!5m2!1sen!2smk"
+                allowfullscreen
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </section>
+
+    <section class="partners">
+    <h2>Our Partners</h2>
+
+    <div class="partners-grid">
+        <div class="partner-card">
+            <a href="https://www.hp.com" target="_blank"><br>
+                <h3>HP</h3><br>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/HP_logo_2012.svg/250px-HP_logo_2012.svg.png" alt="HP Logo"><br>
+            </a><br>
+        </div>
+        <div class="partner-card">
+            <a href="https://www.dell.com" target="_blank"><br>
+                <h3>DELL</h3><br>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Dell_Logo.svg/960px-Dell_Logo.svg.png" alt="Dell Logo"><br>
+            </a><br>
+        </div>
+        <div class="partner-card">
+            <a href="https://www.apple.com" target="_blank"><br>
+                <h3>Apple</h3><br>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple Logo"><br>
+            </a><br>
+        </div>
+        <div class="partner-card">
+            <a href="https://www.razer.com" target="_blank"><br>
+                <h3>Razer</h3><br>
+                <img src="https://cdn.freebiesupply.com/logos/large/2x/razer-logo-png-transparent.png" alt="Razer Logo"><br>
+            </a><br>
+        </div>
+        <div class="partner-card">
+            <a href="https://www.logitech.com" target="_blank"><br>
+                <h3>Logitech</h3><br>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Logitech_logo.png" alt="Logitech Logo"><br>
+            </a><br>
+        </div>
+    </div>
+    </section>
+
+{% endblock %}

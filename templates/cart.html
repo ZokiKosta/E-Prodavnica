@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}">
+{% endblock %}
+{% block content %}
+
+<h1>Your Cart</h1>
+
+{% if cart %}
+<table class="cart-table">
+    <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Qty</th>
+        <th>Total</th>
+        <th></th>
+    </tr>
+
+    {% for id, item in cart.items() %}
+    <tr>
+        <td class="cart-product">
+            <img src="{{ item.image_url }}">
+            {{ item.name }}
+        </td>
+        <td>{{ item.price }} $ </td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.price * item.quantity }} $ </td>
+        <td>
+            <a href="{{ url_for('cart_remove', product_id=id) }}" class="btn danger">✕</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>Total: {{ total }} $</h2>
+<form class="button-form">
+    <a href="{{ url_for('cart_clear') }}" class="btn danger btn-form-cart">Clear</a>
+
+    <a href="{{ url_for('checkout') }}" class="btn btn-form-cart">Checkout</a>
+</form>
+
+{% else %}
+<p>Your cart is empty.</p>
+{% endif %}
+<br><br><br><br><br>
+{% endblock %}
