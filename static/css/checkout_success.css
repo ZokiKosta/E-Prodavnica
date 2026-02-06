@@ -1,6 +1,3 @@
-/* ===================== ORDER CONFIRMATION PAGE ===================== */
-
-/* Page background */
 body {
     margin: 0;
     padding: 0;
@@ -16,7 +13,6 @@ body {
     padding: 40px 20px;
 }
 
-/* Success Title */
 h1 {
     font-size: 2.5rem;
     font-weight: 800;
@@ -25,7 +21,6 @@ h1 {
     position: relative;
 }
 
-/* Add a subtle checkmark animation */
 h1::before {
     content: "✔";
     display: inline-block;
@@ -41,14 +36,12 @@ h1::before {
     100% { transform: scale(1); }
 }
 
-/* Thank you message */
 p {
     font-size: 1.2rem;
     margin-bottom: 30px;
     color: #555;
 }
 
-/* Button */
 .btn {
     background: #4CAF50;
     color: #fff;
@@ -69,7 +62,6 @@ p {
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
-/* Responsive adjustments */
 @media screen and (max-width: 768px) {
     h1 {
         font-size: 2rem;

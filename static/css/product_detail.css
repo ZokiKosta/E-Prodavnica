@@ -1,6 +1,3 @@
-/* ===================== PRODUCT DETAIL PAGE MODERN ===================== */
-
-/* Page background */
 body {
     margin: 0;
     padding: 0;
@@ -9,16 +6,14 @@ body {
     color: #333;
 }
 
-/* Page content wrapper */
 .content-wrapper {
     max-width: 1200px;
-    margin: 80px auto 50px auto; /* leave space for navbar */
+    margin: 80px auto 50px auto;
     padding: 0 20px;
     display: flex;
     flex-direction: column;
 }
 
-/* Main product section */
 .product-main {
     display: flex;
     gap: 40px;
@@ -27,7 +22,6 @@ body {
     margin-bottom: 40px;
 }
 
-/* Product image */
 .product-main img {
     width: 100%;
     max-width: 500px;
@@ -41,7 +35,6 @@ body {
     box-shadow: 0 15px 30px rgba(0,0,0,0.15);
 }
 
-/* Product info (right side) */
 .product-info {
     flex: 1;
     display: flex;
@@ -50,7 +43,6 @@ body {
     max-width: 600px;
 }
 
-/* Product name */
 .product-info h1 {
     font-size: 2.2rem;
     font-weight: 800;
@@ -58,14 +50,12 @@ body {
     margin-bottom: 15px;
 }
 
-/* Category & price */
 .product-info .muted {
     color: #555;
     font-size: 1.1rem;
     margin-bottom: 10px;
 }
 
-/* Stock status */
 .product-info .stock-status {
     font-weight: 600;
     margin-bottom: 20px;
@@ -79,7 +69,6 @@ body {
     color: #ff4d4d;
 }
 
-/* Add to Cart button */
 .product-info .btn {
     background: #4CAF50;
     color: #fff;
@@ -101,7 +90,6 @@ body {
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
-/* Description and Notes */
 .product-details {
     margin-top: 30px;
 }
@@ -124,7 +112,6 @@ body {
     margin-bottom: 20px;
 }
 
-/* Edit/Delete buttons */
 .product-actions {
     display: flex;
     justify-content: flex-start;
@@ -141,7 +128,6 @@ body {
     background: #e04343;
 }
 
-/* Responsive */
 @media screen and (max-width: 1024px) {
     .product-main {
         gap: 20px;
@@ -201,7 +187,6 @@ body {
     }
 }
 
-/* Button variants */
 .btn.primary {
     background: linear-gradient(135deg, #4CAF50, #43a047);
 }
@@ -217,7 +202,7 @@ body {
 .btn.primary:hover {
     background: #45a049;
 }
-/* ===================== FINAL BUTTON STYLE ===================== */
+
 .btn {
     display: inline-flex;
     align-items: center;
@@ -228,7 +213,7 @@ body {
     font-weight: 700;
 
     border: none;
-    border-radius: 9999px; /* FULL CIRCULAR */
+    border-radius: 9999px;
     cursor: pointer;
     text-decoration: none;
 
@@ -236,7 +221,6 @@ body {
     box-shadow: 0 8px 24px rgba(0,0,0,0.18);
 }
 
-/* Add to Cart */
 .btn.primary {
     background: linear-gradient(135deg, #4CAF50, #43a047);
     color: #fff;
@@ -247,7 +231,6 @@ body {
     box-shadow: 0 14px 35px rgba(0,0,0,0.28);
 }
 
-/* Edit */
 .btn.edit {
     background: linear-gradient(135deg, #2196F3, #1e88e5);
     color: #fff;
@@ -258,7 +241,6 @@ body {
     box-shadow: 0 14px 35px rgba(30,136,229,0.35);
 }
 
-/* Delete */
 .btn.danger {
     background: linear-gradient(135deg, #ff4d4d, #e53935);
     color: #fff;
@@ -284,8 +266,6 @@ body {
     color: #666;
 }
 
-/* ===================== RECOMMENDED PRODUCTS (PRODUCT DETAIL) ===================== */
-
 .recommended-section {
     margin-top: 80px;
     padding: 50px 20px;
@@ -300,7 +280,6 @@ body {
     color: #333;
 }
 
-/* Container */
 .recommended-bar {
     display: flex;
     flex-wrap: wrap;
@@ -308,7 +287,6 @@ body {
     justify-content: center;
 }
 
-/* Card */
 .recommended-item {
     background: #fff;
     border-radius: 14px;
@@ -325,14 +303,12 @@ body {
     box-shadow: 0 14px 30px rgba(0,0,0,0.15);
 }
 
-/* Image */
 .recommended-item img {
     width: 100%;
     height: 180px;
     object-fit: cover;
 }
 
-/* Text */
 .recommended-item .product-info {
     padding: 12px 10px;
     text-align: center;
@@ -353,7 +329,6 @@ body {
     margin-bottom: 10px;
 }
 
-/* Buttons */
 .recommended-item .locked-actions {
     display: flex;
     justify-content: center;
@@ -375,15 +350,12 @@ body {
     transform: translateY(-2px);
 }
 
-/* Disabled button */
 .recommended-item .btn:disabled {
     background: #ccc;
     color: #666;
     cursor: not-allowed;
     transform: none;
 }
-
-/* ===================== RESPONSIVE ===================== */
 
 @media screen and (max-width: 768px) {
     .recommended-item {

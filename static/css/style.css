@@ -1,6 +1,5 @@
-/* ===== Navbar Styles ===== */
 .nav {
-    background-color: #121212; /* Darker, modern background */
+    background-color: #121212;
     color: #f0f0f0;
     padding: 15px 20px;
     display: flex;
@@ -17,15 +16,15 @@
     color: #f0f0f0;
     text-decoration: none;
     margin-right: 25px;
-    font-weight: bold; /* Bold font for links */
+    font-weight: bold;
     padding: 8px 15px;
     border-radius: 6px;
     transition: all 0.3s ease;
 }
 
 .nav a:hover {
-    background-color: #ff6f61; /* Accent hover background */
-    color: #ffffff; /* Text stays readable */
+    background-color: #ff6f61;
+    color: #ffffff;
     transform: translateY(-2px);
 }
 
@@ -34,13 +33,12 @@
     align-items: center;
 }
 
-/* ===== Cart Button ===== */
 .cart-container a {
     margin-right: 10px;
-    font-weight: bold; /* Bold Cart text */
+    font-weight: bold;
     padding: 8px 15px;
     border-radius: 6px;
-    background-color: #ff6f61; /* Stand out */
+    background-color: #ff6f61;
     color: #fff;
     display: flex;
     align-items: center;
@@ -58,7 +56,6 @@
     height: 25px;
 }
 
-/* ===== Flash messages ===== */
 .flash-wrap {
     margin: 20px auto;
     max-width: 1200px;
@@ -85,7 +82,6 @@
     background-color: #2196f3;
 }
 
-/* ===== Responsive ===== */
 @media (max-width: 768px) {
     .nav {
         flex-direction: column;
@@ -105,10 +101,9 @@
     }
 }
 
-/* ===== Footer Styles ===== */
 .footer {
-    background-color: #1f1f1f; /* Dark background */
-    color: #f0f0f0; /* Light text */
+    background-color: #1f1f1f;
+    color: #f0f0f0;
     padding: 50px 20px 20px 20px;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -120,7 +115,7 @@
 }
 
 .footer a:hover {
-    color: #ff6f61; /* Accent color on hover */
+    color: #ff6f61;
 }
 
 .footer-content {
@@ -133,7 +128,7 @@
 }
 
 .footer-content > div {
-    flex: 1 1 200px; /* Responsive columns */
+    flex: 1 1 200px;
     min-width: 180px;
 }
 
@@ -149,7 +144,7 @@
     display: block;
     width: 50px;
     height: 2px;
-    background-color: #ff6f61; /* Accent underline */
+    background-color: #ff6f61;
     margin-top: 5px;
     border-radius: 2px;
 }
@@ -169,7 +164,6 @@
     padding-top: 15px;
 }
 
-/* ===== Responsive ===== */
 @media (max-width: 768px) {
     .footer-content {
         flex-direction: column;
