@@ -8,19 +8,26 @@
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-
 <nav class="nav">
     <div class="nav-container">
         <a href="{{ url_for('home') }}">Home</a>
         <a href="{{ url_for('catalogue') }}">Catalogue</a>
         <a href="{{ url_for('about') }}">About</a>
-        <a href="{{ url_for('product_new') }}">Add Product</a>
+        {% if session.get('is_admin') %}
+            <a href="{{ url_for('product_new') }}">Add Product</a>
+        {% endif %}
     </div>
 
     <div class="cart-container">
+
+    {% if session.user_id %}
+        <span class="nav-user">Hi, {{ session.username }}</span>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    {% else %}
+        <a href="{{ url_for('login') }}">Account</a>
+    {% endif %}
         <a href="{{ url_for('cart') }}">Cart</a>
-        <img src="https://uxwing.com/wp-content/themes/uxwing/download/e-commerce-currency-shopping/shopping-cart-white-icon.png" width="25" height="25">
-    </div>
+</div>
 </nav>
 
 

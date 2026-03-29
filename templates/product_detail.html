@@ -4,6 +4,9 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/product_detail.css') }}">
 {% endblock %}
 {% block content %}
+<a href="javascript:history.back()" class="back-button">
+    <img src="https://cdn-icons-png.flaticon.com/512/93/93634.png" alt="Back">
+</a>
 <div class="content-wrapper">
     <div class="product-main">
         <img src="{{ product.image_url }}" alt="Product Image">
@@ -38,13 +41,14 @@
         <pre class="pre">{{ product.notes }}</pre>
         {% endif %}
     </div>
-
+<!--{% if session.get('is_admin') %}-->
     <div class="product-actions">
         <a class="btn edit" href="{{ url_for('product_edit', product_id=product.id) }}">Edit</a>
         <form method="post" action="{{ url_for('product_delete', product_id=product.id) }}" onsubmit="return confirm('Delete?');">
             <button class="btn danger" type="submit">Delete</button>
         </form>
     </div>
+<!--{% endif %}    -->
 </div>
 
 <section class="recommended-section">

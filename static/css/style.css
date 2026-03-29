@@ -1,3 +1,8 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
 .nav {
     background-color: #121212;
     color: #f0f0f0;
@@ -33,6 +38,10 @@
     align-items: center;
 }
 
+.cart-container{
+    gap: 10px;
+}
+
 .cart-container a {
     margin-right: 10px;
     font-weight: bold;
@@ -52,6 +61,7 @@
 }
 
 .cart-container img {
+    margin-right: 10px;
     width: 25px;
     height: 25px;
 }
@@ -174,6 +184,14 @@
     .footer-content > div {
         margin-bottom: 20px;
     }
+}
+
+.nav-user {
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #ff7a6b, #f4a261);
+    color: white;
+    font-weight: 600;
 }
 
 

@@ -368,4 +368,20 @@ body {
         width: 90%;
     }
 }
+.back-button {
+    display: inline-block;
+    margin-bottom: 15px;
+}
 
+.back-button img {
+    margin-top: 50px;
+    margin-left: 150px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.back-button img:hover {
+    transform: scale(1.1);
+}

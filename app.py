@@ -1,14 +1,15 @@
 import random
 from urllib.parse import urlparse
-
+from utils.decorators import admin_required
+import bcrypt
 import flask_session
 import requests
 from flask import Flask, render_template, request, redirect, url_for, flash
 from sqlalchemy import or_
-
-from database import session
-from models import Product
+from database import session as db_session
+from models import Product, User
 from flask import session as cart_session
+from utils.security import hash_password, check_password
 
 from services.ai_service import generate_text
 
@@ -26,7 +27,7 @@ def get_cart():
 
 @app.route('/')
 def home():
-    products = session.query(Product).all()
+    products = db_session.query(Product).all()
 
     recommended = random.sample(products, min(len(products), 10)) if products else []
 
@@ -45,7 +46,7 @@ def catalogue():
     except ValueError:
         max_price = 9999
 
-    query = session.query(Product)
+    query = db_session.query(Product)
 
     if q:
         like = f"%{q}%"
@@ -63,11 +64,12 @@ def catalogue():
     total_products = query.count()
     products = query.order_by(Product.created_at.desc()).offset((page - 1) * per_page).limit(per_page).all()
     total_pages = (total_products + per_page - 1) // per_page
-    session.close()
+    db_session.close()
 
     return render_template('catalogue.html', categories=categories, q=q,category=category, products=products, page=page, total_pages=total_pages)
 
 @app.route('/products/add', methods=['GET', 'POST'])
+@admin_required
 def product_new():
     if request.method == "POST":
         name = (request.form.get("name") or "").strip()
@@ -125,18 +127,18 @@ def product_new():
         ai_description = generate_text(prompt)
 
         product = Product(name=name, category=category, price=price, image_url=image_url, ai_description=ai_description, notes=notes or None, stock=stock)
-        session.add(product)
-        session.commit()
+        db_session.add(product)
+        db_session.commit()
         return redirect(url_for("product_detail", product_id=product.id))
     return render_template('product_form.html', products=[], categories=categories)
 
 @app.route('/products/<int:product_id>')
 def product_detail(product_id):
-    product = session.query(Product).get(product_id)
+    product = db_session.query(Product).get(product_id)
     if not product:
         return "No Product Found", 404
 
-    products = session.query(Product).filter(Product.id != product_id).all()
+    products = db_session.query(Product).filter(Product.id != product_id).all()
 
     recommended = random.sample(
         products,
@@ -146,8 +148,9 @@ def product_detail(product_id):
     return render_template('product_detail.html', product=product, recommended=recommended, categories=categories)
 
 @app.route('/products/<int:product_id>/edit', methods=['GET', 'POST'])
+@admin_required
 def product_edit(product_id: int):
-    product = session.get(Product, product_id)
+    product = db_session.get(Product, product_id)
     if not product:
         return "No Product Found", 404
 
@@ -193,18 +196,19 @@ def product_edit(product_id: int):
         product.notes = notes or None
         product.stock = stock
 
-        session.commit()
+        db_session.commit()
         return redirect(url_for("product_detail", product_id=product.id))
     return render_template('product_form.html', product=product, categories=categories)
 
 @app.route('/products/<int:product_id>/delete', methods=['GET', 'POST'])
+@admin_required
 def product_delete(product_id: int):
-    product = session.get(Product, product_id)
+    product = db_session.get(Product, product_id)
     if not product:
         return "No Product Found", 404
 
-    session.delete(product)
-    session.commit()
+    db_session.delete(product)
+    db_session.commit()
     return redirect(url_for("catalogue"))
 
 @app.route("/cart/clear")
@@ -214,7 +218,7 @@ def cart_clear():
 
 @app.route("/cart/add/<int:product_id>", methods=["POST"])
 def cart_add(product_id):
-    product = session.get(Product, product_id)
+    product = db_session.get(Product, product_id)
     if not product:
         return "Product not found", 404
 
@@ -238,6 +242,7 @@ def cart_add(product_id):
     return redirect(url_for("cart"))
 
 @app.route("/cart/remove/<int:product_id>")
+@admin_required
 def cart_remove(product_id):
     cart = get_cart()
     pid = str(product_id)
@@ -273,17 +278,86 @@ def checkout_confirm():
         return redirect(url_for("cart"))
 
     for pid, item in cart.items():
-        product = session.get(Product, int(pid))
+        product = db_session.get(Product, int(pid))
         if product:
             product.stock = max(0, product.stock - item["quantity"])
-            session.add(product)
+            db_session.add(product)
 
-    session.commit()
+    db_session.commit()
 
     cart_session["cart"] = {}
     cart_session.modified = True
 
     return render_template("checkout_success.html")
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        identifier = request.form.get("identifier")
+        password = request.form.get("password")
+
+
+        user = db_session.query(User).filter(
+            or_(
+                User.username == identifier,
+                User.email == identifier
+            )
+        ).first()
+
+        if not user or not user.check_password(password):
+            flash("Invalid credentials", "error")
+            return redirect(url_for("login"))
+
+        cart_session["user_id"] = user.id
+        cart_session["username"] = user.username
+        cart_session["is_admin"] = user.is_admin
+
+        flash("Logged in successfully!", "success")
+        return redirect(url_for("home"))
+
+    return render_template("auth.html", mode="login")
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        username = request.form.get("username")
+        email = request.form.get("email")
+        password = request.form.get("password")
+
+        existing_user = db_session.query(User).filter(
+            or_(
+                User.username == username,
+                User.email == email
+            )
+        ).first()
+
+        if existing_user:
+            flash("Username or email already exists", "error")
+            return redirect(url_for("register"))
+
+        new_user = User(
+            username=username,
+            email=email,
+            verified=True,
+            verification_code="none"
+        )
+
+        new_user.set_password(password)  # 🔑 hash happens here
+
+        db_session.add(new_user)
+        db_session.commit()
+
+        flash("Account created!", "success")
+        return redirect(url_for("login"))
+
+    return render_template("auth.html", mode="register")
+
+@app.route("/logout")
+def logout():
+    cart_session.clear()
+
+    flash("Logged out successfully!", "success")
+    return redirect(url_for("login"))
 
 
 @app.route("/about")

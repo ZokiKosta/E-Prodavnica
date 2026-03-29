@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<h1 class="auth-title">
+    {% if mode == "login" %}Login{% else %}Register{% endif %}
+</h1>
+
+<div class="auth-wrapper">
+    <div class="auth-card">
+
+        <!-- Toggle -->
+        <div class="auth-toggle">
+            <a href="{{ url_for('login') }}"
+               class="{% if mode == 'login' %}active{% endif %}">Login</a>
+            <a href="{{ url_for('register') }}"
+               class="{% if mode == 'register' %}active{% endif %}">Register</a>
+        </div>
+
+        <form method="POST">
+
+            {% if mode == "register" %}
+                <label>Username *</label>
+                <input type="text" name="username" required>
+
+                <label>Email *</label>
+                <input type="email" name="email" required>
+            {% endif %}
+
+            {% if mode == "login" %}
+                <label>Username or Email *</label>
+                <input type="text" name="identifier" required>
+            {% endif %}
+
+            <label>Password *</label>
+            <input type="password" name="password" required>
+
+            <div class="auth-btn">
+                <button type="submit">
+                    {% if mode == "login" %}Login{% else %}Register{% endif %}
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}

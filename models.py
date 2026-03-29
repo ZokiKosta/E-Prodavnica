@@ -1,4 +1,6 @@
 from datetime import datetime
+
+import bcrypt
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
@@ -19,6 +21,23 @@ class Product(Base):
     ai_description = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     stock = Column(Integer, default=0, nullable=False)
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True)
+    username = Column(String(120), unique=True, nullable=False)
+    email = Column(String(120), unique=True, nullable=False)
+    password = Column(String(300), nullable=False)
+    verified = Column(Boolean, default=False, nullable=False)
+    verification_code = Column(String(120), nullable=False)
+    is_admin = Column(Boolean, default=False, nullable=False)
+
+    def set_password(self, password):
+        self.password = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+
+    def check_password(self, password):
+        return bcrypt.checkpw(password.encode(), self.password.encode())
 
 # class Carts(Base):
 #     __tablename__ = "carts"

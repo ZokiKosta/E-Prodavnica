@@ -1,0 +1,194 @@
+/* Background (same as your product page) */
+body {
+    background-color: #2b2b2b;
+    background-image: radial-gradient(circle, #555 2px, transparent 2px);
+    background-size: 25px 25px;
+    background-blend-mode: overlay;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #fff;
+    animation: moveDots 10s linear infinite;
+}
+
+@keyframes moveDots {
+    0% { background-position: 0 0; }
+    50% { background-position: 50px 50px; }
+    100% { background-position: 0 0; }
+}
+
+/* Wrapper */
+.auth-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    margin-bottom: 150px;
+}
+
+/* Title (same as product title) */
+.auth-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 100px 0 10px;
+    position: relative;
+    letter-spacing: 1px;
+    color: #ffffff;
+    animation: fadeUp 0.6s ease-out;
+}
+
+.auth-title::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: #ff6b00;
+    border-radius: 2px;
+}
+
+/* Card (same gradient style) */
+.auth-card {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(135deg, #ff6f61, #ffb085);
+    max-width: 500px;
+    width: 100%;
+    padding: 35px 30px 45px 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    transition: all 0.3s ease;
+    color: #fff;
+}
+
+.auth-card:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* Toggle (Login/Register switch) */
+.auth-toggle {
+    display: flex;
+    background: rgba(255,255,255,0.25);
+    border-radius: 12px;
+    overflow: hidden;
+    width: 90%;
+    margin: 0 auto 20px auto;
+}
+
+.auth-toggle a {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.auth-toggle a.active {
+    background: #fff;
+    color: #ff6f61;
+}
+
+.auth-toggle a:hover {
+    background: rgba(255,255,255,0.35);
+}
+
+/* Labels */
+.auth-card label {
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 4px;
+}
+
+/* Inputs (same as form inputs) */
+.auth-card input {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    background: rgba(255, 255, 255, 0.95);
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+/* Focus effect */
+.auth-card input:focus {
+    border: 2px solid #ff6f61;
+    box-shadow: 0 0 0 3px rgba(255,111,97,0.15);
+}
+
+/* Button (same style as save button) */
+.auth-card button {
+    background: #fff;
+    color: #ff6f61;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    margin-top: 10px;
+}
+
+.auth-card button:hover {
+    background: #ffece7;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.18);
+}
+
+/* Animation */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .auth-card {
+        margin: 20px;
+        padding: 25px;
+    }
+
+    .auth-title {
+        font-size: 2rem;
+    }
+}
+
+.auth-card button {
+    margin-top: 20px;
+}
+
+.auth-card button {
+    margin-top: 20px;
+}
+
+.auth-card input {
+    width: 95%;
+    margin: 0 auto;
+    display: block;
+}
+.auth-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* ← this is what you want */
+}
+.auth-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
