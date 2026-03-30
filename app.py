@@ -133,7 +133,7 @@ def product_new():
         db_session.add(product)
         db_session.commit()
 
-        log_action(f"[CREATE] Product ID={product.id}, Name='{product.name}'")
+        log_action(f"[CREATE] Product ID={product.id}, Name='{product.name}', CreatedBy='{cart_session.get('username')}'")
 
         return redirect(url_for("product_detail", product_id=product.id))
     return render_template('product_form.html', products=[], categories=categories)
@@ -216,7 +216,7 @@ def product_delete(product_id: int):
     if not product:
         return "No Product Found", 404
 
-    log_action(f"[DELETE] Product ID={product.id}, Name='{product.name}'")
+    log_action(f"[DELETE] Product ID={product.id}, Name='{product.name}', DeletedBy='{cart_session.get('username')}'")
 
     db_session.delete(product)
     db_session.commit()
@@ -395,8 +395,8 @@ def logout():
     username = cart_session.get("username")
     is_admin = cart_session.get("is_admin")
 
-    if is_admin:
-        log_action(f"[LOGOUT] Admin: '{username}' logged out")
+    # if is_admin:
+    #     log_action(f"[LOGOUT] Admin: '{username}' logged out")
 
     cart_session.clear()
 
@@ -483,7 +483,7 @@ def update_order_status(order_id):
     order.status = new_status
     db_session.commit()
 
-    log_action(f"[ORDER UPDATE] Order ID={order.id}, Status={new_status}")
+    log_action(f"[ORDER UPDATE] Order ID={order.id}, Status={new_status}, DeletedBy='{cart_session.get('username')}")
 
     return redirect(url_for("admin_order_detail", order_id=order.id))
 
