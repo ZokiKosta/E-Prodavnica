@@ -142,7 +142,7 @@ body {
     background-blend-mode: overlay;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: #fff;
-    animation: moveDots 10s linear infinite;
+    /* animation: moveDots 10s linear infinite; */
 }
 
 @keyframes moveDots {
