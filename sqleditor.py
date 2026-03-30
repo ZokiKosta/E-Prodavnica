@@ -3,6 +3,7 @@ from models import User
 import sqlite3
 import os
 
+# admin p zoran124
 # # Connect to the database
 # conn = sqlite3.connect("app.db")
 # cursor = conn.cursor()
