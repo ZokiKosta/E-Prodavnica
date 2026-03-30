@@ -8,15 +8,32 @@
 
 <h1 class="logs-title">Activity Logs</h1>
 
-<div class="logs-container">
+<!-- SEARCH -->
+<form method="get" class="logs-search-form">
+    <div class="logs-search-bar">
+        <input type="text" name="q" placeholder="Search logs..." value="{{ q }}" class="logs-search-input">
+        <select name="action" class="logs-search-select">
+            <option value="">All Actions</option>
+            <option value="create" {% if action == "create" %}selected{% endif %}>Create</option>
+            <option value="delete" {% if action == "delete" %}selected{% endif %}>Delete</option>
+            <option value="edit" {% if action == "edit" %}selected{% endif %}>Edit</option>
+            <option value="login" {% if action == "login" %}selected{% endif %}>Login</option>
+            <option value="logout" {% if action == "logout" %}selected{% endif %}>Logout</option>
+        </select>
+        <button type="submit" class="logs-search-btn">Search</button>
+        {% if q or action %}
+            <a href="{{ url_for('logs') }}" class="logs-clear-btn">Clear</a>
+        {% endif %}
+    </div>
+</form>
 
+<div class="logs-container">
     {% for log in logs %}
         <div class="log-item {{ log.action }}">
             <div class="log-top">
                 <span class="log-action">{{ log.action }}</span>
                 <span class="log-time">{{ log.timestamp.strftime('%Y-%m-%d %H:%M:%S') }} CEST</span>
             </div>
-
             <div class="log-message">
                 {{ log.message }}
             </div>
@@ -24,7 +41,27 @@
     {% else %}
         <p class="no-logs">No logs found.</p>
     {% endfor %}
+</div>
 
+<!-- PAGINATION -->
+<div class="pagination">
+    {% if page > 1 %}
+        <a href="{{ url_for('logs', page=page-1, q=q, action=action) }}">← Previous</a>
+    {% else %}
+        <span class="disabled">← Previous</span>
+    {% endif %}
+
+    <span class="current-page">Page {{ page }} of {{ total_pages }}</span>
+
+    {% if page < total_pages %}
+        <a href="{{ url_for('logs', page=page+1, q=q, action=action) }}">Next →</a>
+    {% else %}
+        <span class="disabled">Next →</span>
+    {% endif %}
+</div>
+
+<div style="text-align:center; margin: 30px 0;">
+    <a href="{{ url_for('dashboard') }}" class="btn-back">← Back</a>
 </div>
 
 {% endblock %}

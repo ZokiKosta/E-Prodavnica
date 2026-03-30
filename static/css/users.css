@@ -365,3 +365,21 @@ body {
 main {
     flex: 1;
 }
+.btn-back {
+    display: inline-block;
+    background: #fff;
+    color: #ff6f61;
+    padding: 10px 26px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+    background: #ffece7;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.18);
+}

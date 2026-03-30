@@ -33,10 +33,10 @@
             <th>Total</th>
         </tr>
 
-        {% set total = 0 %}
+        {% set ns = namespace(total=0) %}
         {% for item in order.items %}
         {% set item_total = item.price * item.quantity %}
-        {% set total = total + item_total %}
+        {% set ns.total = ns.total + item_total %}
 
         <tr>
             <!-- IMAGE -->
@@ -56,7 +56,7 @@
 
     <!-- TOTAL -->
     <div class="order-total">
-        Total: {{ total }}
+        Total: {{ ns.total }}
     </div>
 
     <!-- STATUS UPDATE -->

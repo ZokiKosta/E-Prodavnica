@@ -1,4 +1,4 @@
-/* ================= GLOBAL ================= */
+/* ========== BODY ========== */
 body {
     background-color: #2b2b2b;
     background-image: radial-gradient(circle, #555 2px, transparent 2px);
@@ -6,209 +6,164 @@ body {
     background-blend-mode: overlay;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: #fff;
+    animation: moveDots 10s linear infinite;
     margin: 0;
     padding: 0;
-    animation: moveDots 10s linear infinite;
 }
 
 @keyframes moveDots {
-    0% { background-position: 0 0; }
-    50% { background-position: 50px 50px; }
+    0%   { background-position: 0 0; }
+    50%  { background-position: 50px 50px; }
     100% { background-position: 0 0; }
 }
 
-/* ================= TITLES ================= */
-
-
-/* ================= FORM ================= */
-.form {
-    background: linear-gradient(135deg, #ff6f61, #ffb085);
-    max-width: 700px;
-    margin: 40px auto;
-    padding: 30px 25px;
-    border-radius: 20px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    color: #fff;
-    animation: fadeUp 0.6s ease-out;
-}
-
-
-
-.form input,
-.form select,
-.form textarea {
-    background: rgba(255, 255, 255, 0.95);
-    border: none;
-    border-radius: 12px;
-    padding: 12px 15px;
-    font-size: 1rem;
-    color: #333;
-    outline: none;
-}
-
-.form input:focus,
-.form select:focus,
-.form textarea:focus {
-    border: 2px solid #ff6f61;
-    box-shadow: 0 0 0 3px rgba(255,111,97,0.15);
-}
-
-.form .btn {
-    background: #fff;
-    color: #ff6f61;
-    padding: 12px 25px;
-    border-radius: 50px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    align-self: center;
-    transition: all 0.3s ease;
-}
-
-.form .btn:hover {
-    background: #ffece7;
-    transform: translateY(-2px) scale(1.05);
-}
-
-/* ================= DASHBOARD ================= */
-.dashboard {
-    max-width: 1000px;
-    margin: 120px auto;
-    padding: 30px;
-    background: linear-gradient(135deg, #ff6f61, #ffb085);
-    border-radius: 20px;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.25);
-    text-align: center;
-    animation: fadeUp 0.6s ease-out;
-}
-
-
-
-
-
-/* ================= CARDS ================= */
-.card-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.card {
-    background: rgba(255,255,255,0.95);
-    color: #333;
-    padding: 20px;
-    width: 220px;
-    border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    transition: all 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-5px) scale(1.03);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-}
-
-.card h3 {
-    margin: 0;
-    font-size: 1.2rem;
-}
-
-.card p {
-    font-size: 2rem;
-    margin-top: 10px;
-    font-weight: bold;
-    color: #ff6f61;
-}
-
-/* ================= DASHBOARD BUTTONS ================= */
-.dashboard-actions {
-    margin-top: 40px;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.dashboard-btn {
-    background: #fff;
-    color: #ff6f61;
-    padding: 12px 25px;
-    border-radius: 50px;
-    font-weight: bold;
-    text-decoration: none;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-    transition: all 0.3s ease;
-}
-
-.dashboard-btn:hover {
-    background: #ffece7;
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-}
-
-/* ================= LOGS ================= */
-.log {
-    background: rgba(255,255,255,0.95);
-    color: #333;
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
-
-.log .time {
-    font-size: 12px;
-    color: #888;
-}
-
-/* ================= ANIMATION ================= */
 @keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ================= RESPONSIVE ================= */
-@media (max-width: 768px) {
-    .dashboard {
-        margin: 20px;
-        padding: 20px;
-    }
-
-    .form {
-        margin: 20px;
-        padding: 20px;
-    }
-}
-
+/* ========== TITLE ========== */
 .dashboard-title {
     text-align: center;
-    font-size: 3rem;
+    font-size: 2.8rem;
     font-weight: 700;
-    margin: 80px 0 20px;
+    color: #fff;
+    margin: 60px 0 50px;
     position: relative;
     letter-spacing: 1px;
-    color: #ffffff;
     animation: fadeUp 0.6s ease-out;
-    margin: 50px 0 80px;
 }
 
 .dashboard-title::after {
     content: "";
     position: absolute;
-    bottom: -10px;
+    bottom: -12px;
     left: 50%;
     transform: translateX(-50%);
     width: 60px;
     height: 4px;
     background: #ff6b00;
     border-radius: 2px;
+}
+
+/* ========== STAT CARDS ========== */
+.card-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 24px;
+    max-width: 900px;
+    margin: 0 auto 50px;
+    padding: 0 24px;
+    animation: fadeUp 0.6s ease-out;
+}
+
+.card {
+    flex: 0 0 260px;
+    width: 260px;
+    background: linear-gradient(135deg, #ff6f61, #ffb085);
+    border-radius: 20px;
+    padding: 36px 24px;
+    text-align: center;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 20px 42px rgba(0,0,0,0.32);
+}
+
+.card-icon {
+    font-size: 2rem;
+    margin-bottom: 12px;
+}
+
+.card h3 {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: rgba(255,255,255,0.75);
+    margin: 0 0 10px;
+}
+
+.card p {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #fff;
+    margin: 0;
+    line-height: 1;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* ========== ACTION BUTTONS ========== */
+.dashboard-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    max-width: 800px;
+    margin: 0 auto 80px;
+    padding: 0 24px;
+    animation: fadeUp 0.7s ease-out;
+}
+
+.dashboard-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #ff6f61, #ffb085);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.22);
+    transition: all 0.3s ease;
+}
+
+.dashboard-btn:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 14px 32px rgba(0,0,0,0.28);
+    background: linear-gradient(135deg, #ff5a4a, #ffa070);
+}
+
+/* ========== RESPONSIVE ========== */
+@media screen and (max-width: 768px) {
+    .dashboard-title {
+        font-size: 2rem;
+        margin: 40px 0 36px;
+    }
+
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .card {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 340px;
+    }
+
+    .dashboard-btn {
+        flex: 1 1 100%;
+        justify-content: center;
+    }
+}
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-container {
+    flex: 1;
 }

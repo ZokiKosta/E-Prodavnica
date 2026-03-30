@@ -1,4 +1,5 @@
 import random
+from math import ceil
 from urllib.parse import urlparse
 from utils.decorators import admin_required, login_required
 
@@ -29,9 +30,9 @@ def get_cart():
 
 @app.route('/')
 def home():
-    products = db_session.query(Product).all()
-
-    recommended = random.sample(products, min(len(products), 10)) if products else []
+    from sqlalchemy import func
+    recommended = db_session.query(Product).order_by(func.random()).limit(10).all()
+    return render_template('home.html', recommended=recommended)
 
     return render_template('home.html', recommended=recommended)
 
@@ -203,7 +204,7 @@ def product_edit(product_id: int):
 
         db_session.commit()
 
-        log_action(f"[EDIT] Product ID={product.id}, Name='{product.name}'")
+        log_action(f"[EDIT] Product ID={product.id}, Name='{product.name}', EditedBy='{cart_session.get('username')}'")
 
         return redirect(url_for("product_detail", product_id=product.id))
     return render_template('product_form.html', product=product, categories=categories)
@@ -344,8 +345,8 @@ def login():
         cart_session["username"] = user.username
         cart_session["is_admin"] = user.is_admin
 
-        if user.is_admin:
-            log_action(f"[LOGIN] Admin: '{user.username}' logged in")
+        # if user.is_admin:
+        #     log_action(f"[LOGIN] ADMN Profile: '{user.username}' logged in")
 
         flash("Logged in successfully!", "success")
         return redirect(url_for("home"))
@@ -421,8 +422,25 @@ def dashboard():
 @app.route("/dashboard/logs")
 @admin_required
 def logs():
-    logs = db_session.query(Log).order_by(Log.timestamp.desc()).all()
-    return render_template("logs.html", logs=logs)
+    page = request.args.get('page', 1, type=int)
+    q = request.args.get('q', '').strip()
+    action_filter = request.args.get('action', '').strip()
+    per_page = 20
+
+    query = db_session.query(Log).order_by(Log.timestamp.desc())
+
+    if q:
+        query = query.filter(Log.action.ilike(f'%{q}%'))
+
+    if action_filter:
+        query = query.filter(Log.action.ilike(f'%[{action_filter.upper()}]%'))
+
+    total = query.count()
+    total_pages = max(ceil(total / per_page), 1)
+    logs = query.offset((page - 1) * per_page).limit(per_page).all()
+
+    return render_template('logs.html', logs=logs, page=page,
+                           total_pages=total_pages, q=q, action=action_filter)
 
 @app.route("/dashboard/users")
 @admin_required

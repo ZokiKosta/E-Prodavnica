@@ -49,6 +49,7 @@ class Log(Base):
     action = Column(String(255), nullable=False)
     user_id = Column(Integer)
     username = Column(String(120))
+    message = Column(Text, nullable=True)
     timestamp = Column(DateTime, default=lambda: datetime.now(skopje_tz))
 
 class Order(Base):

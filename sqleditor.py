@@ -113,3 +113,10 @@ conn.close()
 #
 # hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
 # print(hashed.decode())
+from database import engine
+from sqlalchemy import text
+
+with engine.connect() as conn:
+    conn.execute(text("UPDATE users SET is_admin = 1 WHERE username = 'Zoki'"))
+    conn.commit()
+    print("Done")
