@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <h1 class="dashboard-title">Admin Dashboard</h1>
+
+    <div class="card-container">
+        <div class="card">
+            <h3>Total Users</h3>
+            <p>{{ total_users }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Total Products</h3>
+            <p>{{ total_products }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Total Logs</h3>
+            <p>{{ total_logs }}</p>
+        </div>
+    </div>
+
+    <!-- ACTION BUTTONS -->
+    <div class="dashboard-actions">
+        <a href="{{ url_for('logs') }}" class="dashboard-btn">📜 View Logs</a>
+        <a href="{{ url_for('product_new') }}" class="dashboard-btn">➕ Add Product</a>
+        <a href="{{ url_for('view_users') }}" class="dashboard-btn">👥 View Users</a>
+    </div>
+</div>
+{% endblock %}

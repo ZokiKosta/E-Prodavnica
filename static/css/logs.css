@@ -1,0 +1,133 @@
+/* ================= BACKGROUND ================= */
+body {
+    background-color: #2b2b2b;
+    background-image: radial-gradient(circle, #555 2px, transparent 2px);
+    background-size: 25px 25px;
+    background-blend-mode: overlay;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #fff;
+    margin: 0;
+    animation: moveDots 10s linear infinite;
+}
+
+@keyframes moveDots {
+    0% { background-position: 0 0; }
+    50% { background-position: 50px 50px; }
+    100% { background-position: 0 0; }
+}
+
+/* ================= TITLE ================= */
+.logs-title {
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin: 60px 0 50px;
+    position: relative;
+}
+
+.logs-title::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: #ff6b00;
+    border-radius: 2px;
+}
+
+/* ================= CONTAINER ================= */
+.logs-container {
+    width: 95%;
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    padding: 25px;
+    background: linear-gradient(135deg, #ff6f61, #ffb085);
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+}
+
+/* ================= LOG ITEM ================= */
+.log-item {
+    background: rgba(255,255,255,0.95);
+    color: #333;
+    padding: 15px 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+
+.log-item:hover {
+    transform: scale(1.01);
+}
+
+/* ================= TOP ROW ================= */
+.log-top {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.log-time {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* ================= MESSAGE ================= */
+.log-message {
+    font-size: 0.95rem;
+}
+
+/* ================= COLORS BY ACTION ================= */
+
+/* CREATE */
+.log-item.create {
+    border-left: 6px solid #4CAF50;
+}
+
+/* DELETE */
+.log-item.delete {
+    border-left: 6px solid #e74c3c;
+}
+
+/* EDIT */
+.log-item.edit {
+    border-left: 6px solid #f39c12;
+}
+
+/* LOGIN */
+.log-item.login {
+    border-left: 6px solid #3498db;
+}
+
+/* LOGOUT */
+.log-item.logout {
+    border-left: 6px solid #9b59b6;
+}
+
+/* DEFAULT */
+.log-item.other {
+    border-left: 6px solid #999;
+}
+
+/* ================= EMPTY ================= */
+.no-logs {
+    text-align: center;
+    color: #fff;
+    font-size: 1.2rem;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}

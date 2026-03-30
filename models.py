@@ -1,6 +1,7 @@
 from datetime import datetime
 
 import bcrypt
+import pytz
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
@@ -8,6 +9,8 @@ from sqlalchemy import Column, String, Integer, Text, DateTime, Boolean
 from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
+
+skopje_tz = pytz.timezone("Europe/Skopje")
 
 class Product(Base):
     __tablename__ = "products"
@@ -38,6 +41,15 @@ class User(Base):
 
     def check_password(self, password):
         return bcrypt.checkpw(password.encode(), self.password.encode())
+
+class Log(Base):
+    __tablename__ = "logs"
+
+    id = Column(Integer, primary_key=True)
+    action = Column(String(255), nullable=False)
+    user_id = Column(Integer)
+    username = Column(String(120))
+    timestamp = Column(DateTime, default=lambda: datetime.now(skopje_tz))
 
 # class Carts(Base):
 #     __tablename__ = "carts"

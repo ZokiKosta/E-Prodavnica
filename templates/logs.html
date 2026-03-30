@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/logs.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<h1 class="logs-title">Activity Logs</h1>
+
+<div class="logs-container">
+
+    {% for log in logs %}
+        <div class="log-item {{ log.action }}">
+            <div class="log-top">
+                <span class="log-action">{{ log.action }}</span>
+                <span class="log-time">{{ log.timestamp.strftime('%Y-%m-%d %H:%M:%S') }} CEST</span>
+            </div>
+
+            <div class="log-message">
+                {{ log.message }}
+            </div>
+        </div>
+    {% else %}
+        <p class="no-logs">No logs found.</p>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

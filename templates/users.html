@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/users.css') }}">
+{% endblock %}
+
+{% block content %}
+<h1 class="dashboard-title">Users</h1>
+
+<div class="dashboard">
+    <table style="width:90%; margin: 0 auto; color:#333; background:white; border-radius:10px; overflow:hidden;">
+        <tr style="background:#ff6f61; color:white;">
+            <th>Username</th>
+            <th>Email</th>
+            <th>Verified</th>
+            <th>Admin</th>
+        </tr>
+
+        {% for user in users %}
+        <tr style="text-align:center;">
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ "✅" if user.verified else "❌" }}</td>
+            <td>{{ "✅" if user.is_admin else "❌" }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

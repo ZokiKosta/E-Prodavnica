@@ -1,14 +1,16 @@
 import random
 from urllib.parse import urlparse
-from utils.decorators import admin_required
+from utils.decorators import admin_required, login_required
 import bcrypt
 import flask_session
 import requests
 from flask import Flask, render_template, request, redirect, url_for, flash
 from sqlalchemy import or_
 from database import session as db_session
-from models import Product, User
+from models import Product, User, Log
 from flask import session as cart_session
+
+from utils.logger import log_action
 from utils.security import hash_password, check_password
 
 from services.ai_service import generate_text
@@ -129,6 +131,9 @@ def product_new():
         product = Product(name=name, category=category, price=price, image_url=image_url, ai_description=ai_description, notes=notes or None, stock=stock)
         db_session.add(product)
         db_session.commit()
+
+        log_action(f"[CREATE] Product ID={product.id}, Name='{product.name}'")
+
         return redirect(url_for("product_detail", product_id=product.id))
     return render_template('product_form.html', products=[], categories=categories)
 
@@ -197,6 +202,9 @@ def product_edit(product_id: int):
         product.stock = stock
 
         db_session.commit()
+
+        log_action(f"[EDIT] Product ID={product.id}, Name='{product.name}'")
+
         return redirect(url_for("product_detail", product_id=product.id))
     return render_template('product_form.html', product=product, categories=categories)
 
@@ -206,6 +214,8 @@ def product_delete(product_id: int):
     product = db_session.get(Product, product_id)
     if not product:
         return "No Product Found", 404
+
+    log_action(f"[DELETE] Product ID={product.id}, Name='{product.name}'")
 
     db_session.delete(product)
     db_session.commit()
@@ -217,6 +227,7 @@ def cart_clear():
     return redirect(url_for("cart"))
 
 @app.route("/cart/add/<int:product_id>", methods=["POST"])
+@login_required
 def cart_add(product_id):
     product = db_session.get(Product, product_id)
     if not product:
@@ -254,12 +265,14 @@ def cart_remove(product_id):
     return redirect(url_for("cart"))
 
 @app.route("/cart")
+@login_required
 def cart():
     cart = get_cart()
     total = sum(item["price"] * item["quantity"] for item in cart.values())
     return render_template("cart.html", cart=cart, total=total)
 
 @app.route("/checkout")
+@login_required
 def checkout():
     cart = get_cart()
 
@@ -271,6 +284,7 @@ def checkout():
     return render_template("checkout.html", cart=cart, total=total)
 
 @app.route("/checkout/confirm", methods=["POST"])
+@login_required
 def checkout_confirm():
     cart = get_cart()
 
@@ -296,7 +310,6 @@ def login():
         identifier = request.form.get("identifier")
         password = request.form.get("password")
 
-
         user = db_session.query(User).filter(
             or_(
                 User.username == identifier,
@@ -311,6 +324,9 @@ def login():
         cart_session["user_id"] = user.id
         cart_session["username"] = user.username
         cart_session["is_admin"] = user.is_admin
+
+        if user.is_admin:
+            log_action(f"[LOGIN] Admin: '{user.username}' logged in")
 
         flash("Logged in successfully!", "success")
         return redirect(url_for("home"))
@@ -342,10 +358,12 @@ def register():
             verification_code="none"
         )
 
-        new_user.set_password(password)  # 🔑 hash happens here
+        new_user.set_password(password)
 
         db_session.add(new_user)
         db_session.commit()
+
+        log_action(f"[REGISTER] User '{username}' created")
 
         flash("Account created!", "success")
         return redirect(url_for("login"))
@@ -354,10 +372,44 @@ def register():
 
 @app.route("/logout")
 def logout():
+    username = cart_session.get("username")
+    is_admin = cart_session.get("is_admin")
+
+    if is_admin:
+        log_action(f"[LOGOUT] Admin: '{username}' logged out")
+
     cart_session.clear()
 
     flash("Logged out successfully!", "success")
     return redirect(url_for("login"))
+
+@app.route("/dashboard")
+@admin_required
+def dashboard():
+    from models import User, Product, Log
+
+    total_users = db_session.query(User).count()
+    total_products = db_session.query(Product).count()
+    total_logs = db_session.query(Log).count()
+
+    return render_template(
+        "dashboard.html",
+        total_users=total_users,
+        total_products=total_products,
+        total_logs=total_logs
+    )
+
+@app.route("/dashboard/logs")
+@admin_required
+def logs():
+    logs = db_session.query(Log).order_by(Log.timestamp.desc()).all()
+    return render_template("logs.html", logs=logs)
+
+@app.route("/dashboard/users")
+@admin_required
+def view_users():
+    users = db_session.query(User).all()
+    return render_template("users.html", users=users)
 
 
 @app.route("/about")
