@@ -1,4 +1,4 @@
-from google import genai
+import google.generativeai as genai
 import os
 
 MODEL_NAME = "gemini-3-flash-preview"
