@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/users.css') }}">
+{% endblock %}
+
+{% block content %}
+<h1 class="dashboard-title">Orders</h1>
+
+<div class="dashboard">
+    <table style="width:90%; margin: 0 auto; color:#333; background:white; border-radius:10px; overflow:hidden;">
+        <tr style="background:#ff6f61; color:white;">
+            <th>ID</th>
+            <th>User</th>
+            <th>Status</th>
+            <th>Items</th>
+            <th>Total</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+
+        {% for order in orders %}
+        <tr style="text-align:center;">
+            <td>#{{ order.id }}</td>
+            <td>{{ order.user.username }}</td>
+
+            <!-- STATUS -->
+            <td>
+                {% if order.status == "pending" %}
+                    🟡 Pending
+                {% elif order.status == "processing" %}
+                    🔵 Processing
+                {% elif order.status == "shipped" %}
+                    📦 Shipped
+                {% elif order.status == "delivered" %}
+                    ✅ Delivered
+                {% elif order.status == "cancelled" %}
+                    ❌ Cancelled
+                {% else %}
+                    {{ order.status }}
+                {% endif %}
+            </td>
+
+            <!-- NUMBER OF ITEMS -->
+            <td>{{ order.items|length }}</td>
+
+            <!-- TOTAL PRICE -->
+            <td>{{ order.total }}</td>
+
+            <!-- DATE -->
+            <td>{{ order.created_at.strftime("%Y-%m-%d %H:%M") }}</td>
+
+            <!-- VIEW BUTTON -->
+            <td>
+                <a href="{{ url_for('admin_order_detail', order_id=order.id) }}"
+                   style="text-decoration:none; color:#ff6f61; font-weight:bold;">
+                    View
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

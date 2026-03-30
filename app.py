@@ -7,7 +7,7 @@ import requests
 from flask import Flask, render_template, request, redirect, url_for, flash
 from sqlalchemy import or_
 from database import session as db_session
-from models import Product, User, Log
+from models import Product, User, Log, OrderItem, Order
 from flask import session as cart_session
 
 from utils.logger import log_action
@@ -253,7 +253,7 @@ def cart_add(product_id):
     return redirect(url_for("cart"))
 
 @app.route("/cart/remove/<int:product_id>")
-@admin_required
+@login_required
 def cart_remove(product_id):
     cart = get_cart()
     pid = str(product_id)
@@ -291,13 +291,32 @@ def checkout_confirm():
     if not cart:
         return redirect(url_for("cart"))
 
+
+    user_id = cart_session.get("user_id")
+
+    order = Order(user_id=user_id)
+    db_session.add(order)
+    db_session.flush()
+
+    user = db_session.get(User, user_id)
+
+    total_price=0
+
     for pid, item in cart.items():
         product = db_session.get(Product, int(pid))
         if product:
-            product.stock = max(0, product.stock - item["quantity"])
+            if product.stock < item["quantity"]:
+                flash(f"Not enough stock for {product.name}", "error")
+                return redirect(url_for("cart"))
+            product.stock -= item["quantity"]
+            order_item = OrderItem(order_id = order.id, product_id = product.id, quantity = item["quantity"], price = product.price)
+            total_price += product.price * item["quantity"]
+            db_session.add(order_item)
             db_session.add(product)
 
     db_session.commit()
+
+    log_action(f"[ORDER CREATED] Order ID={order.id}, User='{user.username}', Total={total_price}")
 
     cart_session["cart"] = {}
     cart_session.modified = True
@@ -411,6 +430,60 @@ def view_users():
     users = db_session.query(User).all()
     return render_template("users.html", users=users)
 
+@app.route("/dashboard/orders")
+@admin_required
+def admin_orders():
+    orders = db_session.query(Order).order_by(Order.created_at.desc()).all()
+    return render_template("admin_orders.html", orders=orders)
+
+@app.route("/dashboard/orders/<int:order_id>")
+@admin_required
+def admin_order_detail(order_id):
+    order = db_session.get(Order, order_id)
+
+    if not order:
+        return "Order not found", 404
+
+    return render_template("admin_order_detail.html", order=order)
+
+@app.route("/dashboard/orders/<int:order_id>/status", methods=["POST"])
+@admin_required
+def update_order_status(order_id):
+    order = db_session.get(Order, order_id)
+
+    if not order:
+        return "Order not found", 404
+
+    new_status = request.form.get("status")
+
+    valid_statuses = ["pending", "processing", "shipped", "delivered", "cancelled"]
+
+    if new_status not in valid_statuses:
+        flash("Invalid status", "error")
+        return redirect(url_for("admin_orders"))
+
+    order.status = new_status
+    db_session.commit()
+
+    log_action(f"[ORDER UPDATE] Order ID={order.id}, Status={new_status}")
+
+    return redirect(url_for("admin_order_detail", order_id=order.id))
+
+@app.route("/my-orders")
+@login_required
+def my_orders():
+    user_id = cart_session.get("user_id")
+
+    orders = db_session.query(Order).filter_by(user_id=user_id).all()
+
+    return render_template("admin_orders.html", orders=orders)
+
+# @app.errorhandler(Exception)
+# def handle_all_errors(error):
+#     code = getattr(error, "code", 500)
+#     message = getattr(error, "description", "Something went wrong")
+#
+#     return render_template("errors/error.html", code=code, message=message), code
 
 @app.route("/about")
 def about():
