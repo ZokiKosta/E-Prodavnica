@@ -1,5 +1,6 @@
 from functools import wraps
 from flask import redirect, url_for, flash, session as flask_session
+
 def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):

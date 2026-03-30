@@ -76,7 +76,7 @@ body {
 /* ================= DASHBOARD ================= */
 .dashboard {
     max-width: 1000px;
-    margin: 60px auto;
+    margin: 120px auto;
     padding: 30px;
     background: linear-gradient(135deg, #ff6f61, #ffb085);
     border-radius: 20px;
@@ -188,7 +188,7 @@ body {
         padding: 20px;
     }
 }
-/* Dashboard Title (same as auth-title) */
+
 .dashboard-title {
     text-align: center;
     font-size: 3rem;

@@ -1,7 +1,7 @@
 import random
 from urllib.parse import urlparse
 from utils.decorators import admin_required, login_required
-import bcrypt
+
 import flask_session
 import requests
 from flask import Flask, render_template, request, redirect, url_for, flash
@@ -354,7 +354,7 @@ def register():
         new_user = User(
             username=username,
             email=email,
-            verified=True,
+            verified=False,
             verification_code="none"
         )
 
