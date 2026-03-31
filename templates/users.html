@@ -12,6 +12,7 @@
         <tr style="background:#ff6f61; color:white;">
             <th>Username</th>
             <th>Email</th>
+            <th>Orders</th>
             <th>Verified</th>
             <th>Admin</th>
         </tr>
@@ -20,6 +21,7 @@
         <tr style="text-align:center;">
             <td>{{ user.username }}</td>
             <td>{{ user.email }}</td>
+            <td>{{ user_order_counts.get(user.id, 0) }}</td>
             <td>{{ "✅" if user.verified else "❌" }}</td>
             <td>{{ "✅" if user.is_admin else "❌" }}</td>
         </tr>

@@ -6,7 +6,7 @@ from utils.decorators import admin_required, login_required
 import flask_session
 import requests
 from flask import Flask, render_template, request, redirect, url_for, flash
-from sqlalchemy import or_
+from sqlalchemy import or_, func
 from database import session as db_session
 from models import Product, User, Log, OrderItem, Order
 from flask import session as cart_session
@@ -303,6 +303,7 @@ def checkout_confirm():
 
     total_price=0
 
+
     for pid, item in cart.items():
         product = db_session.get(Product, int(pid))
         if product:
@@ -314,6 +315,8 @@ def checkout_confirm():
             total_price += product.price * item["quantity"]
             db_session.add(order_item)
             db_session.add(product)
+
+    order.total_price = total_price
 
     db_session.commit()
 
@@ -446,12 +449,16 @@ def logs():
 @admin_required
 def view_users():
     users = db_session.query(User).all()
-    return render_template("users.html", users=users)
+
+    user_order_counts = dict(db_session.query(Order.user_id, func.count(Order.id)).group_by(Order.user_id).all())
+
+    return render_template("users.html", users=users,user_order_counts=user_order_counts)
 
 @app.route("/dashboard/orders")
 @admin_required
 def admin_orders():
     orders = db_session.query(Order).order_by(Order.created_at.desc()).all()
+
     return render_template("admin_orders.html", orders=orders)
 
 @app.route("/dashboard/orders/<int:order_id>")

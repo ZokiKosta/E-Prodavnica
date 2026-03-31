@@ -58,6 +58,7 @@ class Order(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     created_at = Column(DateTime, default=datetime.utcnow)
+    total_price= Column(Integer, nullable=False)
 
     status = Column(String, default="pending")
     # pending, processing, shipped, delivered, cancelled
