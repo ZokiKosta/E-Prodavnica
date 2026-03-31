@@ -1,4 +1,4 @@
-/* Background (same as your product page) */
+/* Background */
 body {
     margin: 0;
     padding: 0;
@@ -8,12 +8,11 @@ body {
     background-blend-mode: overlay;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: #fff;
-    /* animation: moveDots 10s linear infinite; */
 }
 
 @keyframes moveDots {
-    0% { background-position: 0 0; }
-    50% { background-position: 50px 50px; }
+    0%   { background-position: 0 0; }
+    50%  { background-position: 50px 50px; }
     100% { background-position: 0 0; }
 }
 
@@ -26,13 +25,12 @@ body {
     margin-bottom: 150px;
 }
 
-/* Title (same as product title) */
-/* Remove the 100px top margin hack */
+/* Title */
 .auth-title {
     text-align: center;
     font-size: 2.5rem;
     font-weight: 700;
-    margin: 100px 0 10px;   /* ← was 100px, now reasonable */
+    margin: 100px 0 10px;
     padding-top: 20px;
     position: relative;
     letter-spacing: 1px;
@@ -52,7 +50,7 @@ body {
     border-radius: 2px;
 }
 
-/* Card (same gradient style) */
+/* Card */
 .auth-card {
     position: relative;
     z-index: 1;
@@ -73,10 +71,10 @@ body {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
 }
 
-/* Toggle (Login/Register switch) */
+/* Toggle */
 .auth-toggle {
     display: flex;
-    background: rgba(255,255,255,0.25);
+    background: rgba(255, 255, 255, 0.25);
     border-radius: 12px;
     overflow: hidden;
     width: 90%;
@@ -99,7 +97,7 @@ body {
 }
 
 .auth-toggle a:hover {
-    background: rgba(255,255,255,0.35);
+    background: rgba(255, 255, 255, 0.35);
 }
 
 /* Labels */
@@ -109,9 +107,9 @@ body {
     margin-bottom: 4px;
 }
 
-/* Inputs (same as form inputs) */
+/* Inputs */
 .auth-card input {
-    width: 100%;
+    width: 95%;
     padding: 12px 15px;
     font-size: 1rem;
     border-radius: 12px;
@@ -120,16 +118,18 @@ body {
     background: rgba(255, 255, 255, 0.95);
     color: #333;
     transition: all 0.3s ease;
+    margin: 0 auto;
+    display: block;
+    box-sizing: border-box;
 }
 
-/* Focus effect */
 .auth-card input:focus {
     border: 2px solid #ff6f61;
-    box-shadow: 0 0 0 3px rgba(255,111,97,0.15);
+    box-shadow: 0 0 0 3px rgba(255, 111, 97, 0.15);
 }
 
-/* Button (same style as save button) */
-.auth-card button {
+/* Submit button */
+.auth-card button[type="submit"] {
     background: #fff;
     color: #ff6f61;
     padding: 12px 25px;
@@ -139,17 +139,97 @@ body {
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-    margin-top: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    margin-top: 20px;
 }
 
-.auth-card button:hover {
+.auth-card button[type="submit"]:hover {
     background: #ffece7;
     transform: translateY(-2px) scale(1.03);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.18);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
 }
 
-/* Animation */
+.auth-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Form */
+.auth-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* ── Password field wrapper ── */
+.pw-field-wrap {
+    position: relative;
+    width: 95%;
+    margin: 0 auto;
+}
+
+.pw-field-wrap input {
+    width: 100%;
+    padding-right: 42px;
+    margin: 0;
+}
+
+/* Eye icon */
+.pw-eye {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: rgba(255, 111, 97, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    user-select: none;
+    transition: color 0.2s;
+}
+
+.pw-eye:hover {
+    color: #ff6f61;
+}
+
+/* ── Strength meter ── */
+.pw-strength-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 95%;
+    margin: 6px auto 0 auto;
+}
+
+.pw-strength-bar {
+    flex: 1;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.30);
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.pw-strength-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 99px;
+    transition: width 0.35s ease, background-color 0.35s ease;
+}
+
+.pw-strength-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    min-width: 46px;
+    text-align: right;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    transition: color 0.35s ease;
+}
+
+/* Animations */
 @keyframes fadeUp {
     from {
         opacity: 0;
@@ -172,27 +252,4 @@ body {
         font-size: 2rem;
     }
 }
-
-.auth-card button {
-    margin-top: 20px;
-}
-
-.auth-card button {
-    margin-top: 20px;
-}
-
-.auth-card input {
-    width: 95%;
-    margin: 0 auto;
-    display: block;
-}
-.auth-card form {
-    display: flex;
-    flex-direction: column;
-    gap: 5px; /* ← this is what you want */
-}
-.auth-btn {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
+.hidden { display: none; }
