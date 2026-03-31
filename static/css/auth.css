@@ -1,5 +1,7 @@
 /* Background (same as your product page) */
 body {
+    margin: 0;
+    padding: 0;
     background-color: #2b2b2b;
     background-image: radial-gradient(circle, #555 2px, transparent 2px);
     background-size: 25px 25px;
@@ -25,11 +27,13 @@ body {
 }
 
 /* Title (same as product title) */
+/* Remove the 100px top margin hack */
 .auth-title {
     text-align: center;
     font-size: 2.5rem;
     font-weight: 700;
-    margin: 100px 0 10px;
+    margin: 100px 0 10px;   /* ← was 100px, now reasonable */
+    padding-top: 20px;
     position: relative;
     letter-spacing: 1px;
     color: #ffffff;
